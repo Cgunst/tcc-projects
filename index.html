@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Trinity Community Center technology and audio-visual projects: what's underway, what's planned, why it matters, and how gifts make it possible.">
+<title>Trinity Community Center: Technology &amp; AV Projects</title>
+<style>
+  :root {
+    --paper: #faf8f3;
+    --card: #f2eee4;
+    --ink: #2b2a26;
+    --muted: #5f5b51;
+    --hairline: #d8d2c4;
+    --accent: #2f5d46;
+    --accent-dark: #24483a;
+    --accent-tint: #e7efe9;
+    --amber-tint: #f7ecd6;
+    --amber-ink: #6a4d13;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-text-size-adjust: 100%;
+    text-wrap: pretty;
+  }
+
+  /* ---------- Shared ---------- */
+
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  a { color: var(--accent-dark); text-underline-offset: 2px; }
+  a:hover { color: var(--ink); }
+
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--ink);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    z-index: 10;
+  }
+  .skip-link:focus { left: 0.5rem; top: 0.5rem; }
+
+  h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  h2 {
+    font-size: 1.55rem;
+    margin: 3rem 0 0.75rem;
+    padding-top: 1.25rem;
+    border-top: 3px double var(--hairline);
+  }
+  h3 { font-size: 1.2rem; margin: 0 0 0.5rem; }
+
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 0.75rem 0 0;
+  }
+
+  .placeholder {
+    display: inline-block;
+    background: var(--amber-tint);
+    color: var(--amber-ink);
+    border: 1px dashed var(--amber-ink);
+    border-radius: 4px;
+    padding: 0.05rem 0.45rem;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.85em;
+    white-space: nowrap;
+  }
+
+  .status-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+    margin: 0.6rem 0 0.75rem;
+    font-size: 0.95rem;
+  }
+  .status-row .label {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+  }
+  .status-row .value { font-weight: bold; }
+
+  .status-dot {
+    display: inline-block;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 0.35em;
+    vertical-align: baseline;
+  }
+  .status-awaiting .status-dot { background: #b07a14; }
+
+  .gift-box {
+    background: var(--accent-tint);
+    border-left: 4px solid var(--accent);
+    padding: 0.85rem 1.1rem;
+    margin: 1rem 0 0;
+  }
+  .gift-box h4 {
+    margin: 0 0 0.35rem;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+  }
+  .gift-box p { margin: 0; }
+
+  figure.photo-slot { margin: 1.25rem 0 0; }
+  .photo-box {
+    border: 2px dashed var(--hairline);
+    border-radius: 6px;
+    background: var(--card);
+    min-height: 7.5rem;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+  figure.photo-slot figcaption {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    text-align: center;
+  }
+
+  /* ---------- Header ---------- */
+
+  header.site {
+    background: var(--accent);
+    color: #fff;
+    padding: 2.75rem 0 2.5rem;
+  }
+  header.site .kicker {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #cfe0d6;
+    margin: 0 0 0.5rem;
+  }
+  header.site h1 {
+    font-size: clamp(1.75rem, 5vw, 2.6rem);
+    margin: 0;
+  }
+  header.site .lede { color: #e8f0ea; max-width: 40rem; }
+  header.site .updated {
+    margin: 1.5rem 0 0;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.8rem;
+    color: #cfe0d6;
+  }
+
+  /* ---------- Contents ---------- */
+
+  nav.contents {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.9rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  nav.contents h2 {
+    border: 0;
+    margin: 0 0 0.5rem;
+    padding: 0;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  nav.contents ul { margin: 0; padding: 0 0 0 1.2rem; }
+  nav.contents li { margin: 0.25rem 0; }
+
+  /* ---------- Sections ---------- */
+
+  section { padding-bottom: 0.5rem; }
+
+  .underway {
+    background: var(--accent-tint);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 0;
+  }
+  .underway h3 { margin-top: 0; }
+  .underway p:last-child { margin-bottom: 0; }
+
+  .cost-cap-note {
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  article.project {
+    margin: 2.5rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--hairline);
+  }
+  article.project .proj-number {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin: 0 0 0.2rem;
+  }
+  article.project h3 { font-size: 1.45rem; }
+  article.project.future .proj-number { color: var(--muted); }
+  article.project.future h3::after {
+    content: " (a future project)";
+    font-size: 0.75em;
+    font-weight: normal;
+    color: var(--muted);
+  }
+
+  .faq-note { font-style: italic; }
+
+  footer.site {
+    margin-top: 3rem;
+    border-top: 3px double var(--hairline);
+    padding: 1.5rem 0 3rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* ---------- Print ---------- */
+
+  @media print {
+    @page { margin: 0.75in 0.75in 0.9in; }
+    body {
+      background: #fff;
+      font-size: 12pt;
+      color: #000;
+    }
+    .skip-link, nav.contents { display: none; }
+    header.site {
+      background: #fff;
+      color: #000;
+      border-bottom: 2pt solid #000;
+      padding: 0 0 0.75rem;
+    }
+    header.site .kicker, header.site .updated { color: #444; }
+    header.site .lede { color: #333; }
+    .placeholder {
+      background: #fff;
+      border: 1pt dashed #666;
+      color: #000;
+    }
+    h2 { break-before: page; margin-top: 0; }
+    .no-break, .gift-box, .status-row, figure.photo-slot { break-inside: avoid; }
+    article.project {
+      break-before: page;
+      border-top: 0;
+      padding-top: 0;
+    }
+    .gift-box { background: #fff; border-left: 3pt solid #000; }
+    .photo-box {
+      border: 1.5pt dashed #999;
+      background: #fff;
+      color: #555;
+      min-height: 3.5in;
+    }
+    a { color: #000; text-decoration: none; }
+    footer.site { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site">
+  <div class="wrap">
+    <p class="kicker">Trinity Community Center &middot; Town of Herman, Wisconsin</p>
+    <h1>Trinity Community Center: Technology &amp; AV Projects</h1>
+    <p class="lede">An overview of the technology and audio-visual work under way and planned for our building &mdash; what each project is, why it matters to our church and our neighbors, and how you can help make it happen.</p>
+    <p class="updated">Maintained by the Center&rsquo;s volunteer IT/AV manager &middot; Last updated: November 22, 2026</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="contents" aria-label="Page contents">
+    <h2>On this page</h2>
+    <ul>
+      <li><a href="#why">Why this matters</a></li>
+      <li><a href="#underway">Already under way ($0)</a></li>
+      <li><a href="#projects">The projects, in priority order</a></li>
+      <li><a href="#funding">Funding &amp; how to give</a></li>
+      <li><a href="#contact">Questions &amp; contact</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main id="main">
+
+<div class="wrap">
+
+  <section id="why">
+    <h2>Why this matters</h2>
+    <p>Trinity Community Center is a former elementary school given new life as a home for many things at once: our chapel and pastor&rsquo;s office, the community pantry, 4-H and meeting rooms, the cafeteria, the Great Room, and offices leased to tenants. Hundreds of people from the congregation and the wider community walk through these doors each month &mdash; and nearly everything they come for now depends, quietly, on the building&rsquo;s technology: the Wi-Fi, the sound system, the computers that run services and meetings.</p>
+    <p>Our new community room &mdash; a roughly 50-by-50-foot gathering space &mdash; will be dedicated at a ceremony in <strong>mid-January 2027</strong>, with the annual congregational meeting to follow. That ceremony is our target: the goal is to have most of these projects completed by then, so the building works the way it should on the day we celebrate it.</p>
+    <p>Every project listed below was <strong>approved by the Property Use Committee as submitted</strong>, subject to funding. The plans are ready. What is still needed is the funding to carry them out &mdash; and that is where your help comes in.</p>
+  </section>
+
+  <section id="underway">
+    <h2>Already under way &mdash; at no cost</h2>
+    <div class="underway no-break">
+      <h3>Secure, separate networks &mdash; and a friendlier guest Wi-Fi</h3>
+      <div class="status-row">
+        <span><span class="label">Status</span><span class="value"><span class="status-dot" aria-hidden="true"></span>Approved &mdash; in progress</span></span>
+        <span><span class="label">Estimated cost</span><span class="value">$0 &mdash; volunteer labor</span></span>
+      </div>
+      <p>Work that costs nothing but time is already happening. The building&rsquo;s network is being reorganized so that staff, guests, AV equipment, and building systems each run on their own secure network &mdash; kept deliberately separate, the way locking the file cabinet is separate from locking the front door. A small mistake or a problem in one area can no longer spill into the others.</p>
+      <p>Guests will also soon see a simple welcome page with terms of use when they join the guest Wi-Fi &mdash; a friendly &ldquo;hello&rdquo; that also states, plainly, the rules that keep the network safe for everyone.</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>The projects, in priority order</h2>
+    <p>These are listed in the order the committee has agreed they should be done. Each is ready to go as soon as it is funded.</p>
+
+    <!-- 1 -->
+    <article class="project" id="p1">
+      <p class="proj-number">Project 1</p>
+      <h3>Community room audio-visual system</h3>
+      <div class="status-row">
+        <span><span class="label">Status</span><span class="value status-awaiting"><span class="status-dot" aria-hidden="true"></span>Approved &mdash; awaiting funding</span></span>
+        <span><span class="label">Estimated cost</span><span class="value"><span class="placeholder">[PLACEHOLDER: cost]</span></span></span>
+      </div>
+      <p><strong>What it is.</strong> The community room&rsquo;s new 98-inch TV and existing surround speakers are currently run through a small stereo that was meant to be a stopgap. This project replaces it with a proper home-theater receiver (an Onkyo TX-RZ70), adds a powered subwoofer, and adds a modern, compact media PC (an Acemagic F2A) for playing music, slides, and videos. Everything is rack-mounted neatly in the console below the TV &mdash; one tidy cabinet instead of a tangle of gear.</p>
+      <p><strong>Why it matters.</strong> This is the room we will dedicate in January. It will host the dedication ceremony, the annual meeting, and countless events after that &mdash; funerals and weddings, community gatherings, movies, presentations, and meetings that need to be heard clearly from the front row to the back corner. The stopgap stereo cannot do that room justice. This system can, and it is simple enough that volunteers can run it without calling for help.</p>
+      <div class="gift-box no-break">
+        <h4>What your gift makes possible</h4>
+        <p>Clear speech and full music at the dedication service and in every gathering the room hosts for years to come &mdash; so someone in the last row hears every word as well as someone in the first.</p>
+      </div>
+      <figure class="photo-slot">
+        <div class="photo-box">[Photo to be added]</div>
+        <figcaption>Photo: the new community room, looking toward the TV and console.</figcaption>
+      </figure>
+    </article>
+
+    <!-- 2 -->
+    <article class="project" id="p2">
+      <p class="proj-number">Project 2</p>
+      <h3>Chapel computer replacement</h3>
+      <div class="status-row">
+        <span><span class="label">Status</span><span class="value status-awaiting"><span class="status-dot" aria-hidden="true"></span>Approved &mdash; awaiting funding</span></span>
+        <span><span class="label">Estimated cost</span><span class="value"><span class="placeholder">[PLACEHOLDER: cost]</span></span></span>
+      </div>
+      <p><strong>What it is.</strong> Replacing the chapel&rsquo;s aging computer with a compact, modern mini PC (an Acemagic K5), along with a second 27-inch monitor.</p>
+      <p><strong>Why it matters.</strong> The chapel computer carries a growing share of our worship life &mdash; hymns and liturgy, slides, and recordings. The current one is aging, and an aging computer on a Sunday morning is a distraction nobody needs. The new machine does double duty in two ways that serve the whole building: it becomes the station where security footage can be reviewed when needed, and it opens the door to livestreaming services in the future &mdash; so members who are homebound, ill, or far from home can still worship with us. The second monitor makes it much easier for the person running the service to see what the congregation sees.</p>
+      <div class="gift-box no-break">
+        <h4>What your gift makes possible</h4>
+        <p>Smoother, distraction-free services; a proper place to review building footage when it matters; and the foundation for sharing our services with members who cannot be here in person.</p>
+      </div>
+    </article>
+
+    <!-- 3 -->
+    <article class="project" id="p3">
+      <p class="proj-number">Project 3</p>
+      <h3>Security cameras for entrances and parking</h3>
+      <div class="status-row">
+        <span><span class="label">Status</span><span class="value status-awaiting"><span class="status-dot" aria-hidden="true"></span>Approved &mdash; awaiting funding</span></span>
+        <span><span class="label">Estimated cost</span><span class="value"><span class="placeholder">[PLACEHOLDER: cost]</span></span></span>
+      </div>
+      <p><strong>What it is.</strong> About five professional cameras covering the building entrances and the parking lot, recording onto equipment the building already owns, with a dedicated drive just for the recordings. Volunteers will do the installation, and the tools have been donated &mdash; so every dollar given goes toward cameras and storage, not labor.</p>
+      <p><strong>Why it matters.</strong> Our building hosts young and old, evening and daytime, congregation and community. Cameras at the doors and lot are a quiet reassurance for everyone who uses them &mdash; and if something ever does go wrong, we will have the record needed to sort it out fairly.</p>
+      <p><strong>Who may view footage.</strong> The plan includes a written policy covering exactly who may view recordings and how access is requested and granted. Viewing will be limited to a small, designated group of church leaders; requests will be handled through a defined process and documented, and footage will be used only to look into specific incidents. The camera system is being sized and placed with that policy in mind, so the protection of people&rsquo;s privacy is designed in from the start &mdash; not added afterward.</p>
+      <div class="gift-box no-break">
+        <h4>What your gift makes possible</h4>
+        <p>A safer entrance for every child at 4-H night, every guest at the pantry, and every car in the lot after an evening meeting &mdash; with clear rules that respect everyone&rsquo;s privacy.</p>
+      </div>
+    </article>
+
+    <!-- 4 -->
+    <article class="project" id="p4">
+      <p class="proj-number">Project 4</p>
+      <h3>Lockable network closet</h3>
+      <div class="status-row">
+        <span><span class="label">Status</span><span class="value status-awaiting"><span class="status-dot" aria-hidden="true"></span>Approved &mdash; awaiting funding</span></span>
+        <span><span class="label">Estimated cost</span><span class="value"><span class="placeholder">[PLACEHOLDER: cost]</span></span></span>
+      </div>
+      <p><strong>What it is.</strong> The building&rsquo;s network equipment currently sits on an open rack in a shared storage room. This project frames in and encloses that rack in a small, lockable closet of its own.</p>
+      <p><strong>Why it matters.</strong> Every phone call, every guest&rsquo;s Wi-Fi, every meeting&rsquo;s slides, and the systems that run the building pass through that rack. Today it is out in the open, where it can collect dust, take an accidental bump, or be unplugged by someone who didn&rsquo;t know better &mdash; any of which could quietly interrupt the whole building. A framed, lockable closet protects the heart of the building&rsquo;s technology and keeps the storage room usable for storage.</p>
+      <div class="gift-box no-break">
+        <h4>What your gift makes possible</h4>
+        <p>Reliability: the connections everyone depends on, protected from dust, bumps, and accidents &mdash; and a closet door that locks, so only the right people ever touch it.</p>
+      </div>
+      <figure class="photo-slot">
+        <div class="photo-box">[Photo to be added]</div>
+        <figcaption>Photo: the network rack in its current shared storage room.</figcaption>
+      </figure>
+    </article>
+
+    <!-- 5 -->
+    <article class="project" id="p5">
+      <p class="proj-number">Project 5</p>
+      <h3>Wi-Fi refresh</h3>
+      <div class="status-row">
+        <span><span class="label">Status</span><span class="value status-awaiting"><span class="status-dot" aria-hidden="true"></span>Approved &mdash; awaiting funding</span></span>
+        <span><span class="label">Estimated cost</span><span class="value"><span class="placeholder">[PLACEHOLDER: cost]</span></span></span>
+      </div>
+      <p><strong>What it is.</strong> Replacing the building&rsquo;s older wireless access points with current models, for better coverage and capacity. One of the new units is already installed and serving the Great Room.</p>
+      <p><strong>Why it matters.</strong> Wi-Fi is the front door to almost everything that happens here now: pantry volunteers looking up resources, meeting attendees pulling up documents, guests in the Great Room, and the people who work in this building every day. The older units were good in their day, but a building this size, used this heavily, needs current equipment to reach every corner and carry everyone at once &mdash; especially on busy days when several rooms are in use at the same time.</p>
+      <div class="gift-box no-break">
+        <h4>What your gift makes possible</h4>
+        <p>Fast, dependable Wi-Fi in every room of the building &mdash; for the pantry, the meetings, the tenants&rsquo; guests, and everyone in between.</p>
+      </div>
+    </article>
+
+    <!-- 6 -->
+    <article class="project future" id="p6">
+      <p class="proj-number">Project 6</p>
+      <h3>Door access control</h3>
+      <div class="status-row">
+        <span><span class="label">Status</span><span class="value status-awaiting"><span class="status-dot" aria-hidden="true"></span>Future project &mdash; not yet funded or scheduled</span></span>
+        <span><span class="label">Estimated cost</span><span class="value"><span class="placeholder">[PLACEHOLDER: cost, TBD]</span></span></span>
+      </div>
+      <p><strong>What it is.</strong> Credentialed (card- or code-based) entry for the main and rear doors, replacing the passing-around of physical keys.</p>
+      <p><strong>Why it matters.</strong> Keys get copied, lost, and never quite returned. With credentialed entry, access can be granted to exactly the right people, changed when volunteers or tenants change, and removed in an instant when needed &mdash; and we can know when the building was opened and by whom. It is a future project, and it will return to the committee for planning and costing; it is shared here so the congregation can see where the building is headed.</p>
+    </article>
+
+    <!-- 7 -->
+    <article class="project future" id="p7">
+      <p class="proj-number">Project 7</p>
+      <h3>Building automation</h3>
+      <div class="status-row">
+        <span><span class="label">Status</span><span class="value status-awaiting"><span class="status-dot" aria-hidden="true"></span>Future project &mdash; not yet funded or scheduled</span></span>
+        <span><span class="label">Estimated cost</span><span class="value"><span class="placeholder">[PLACEHOLDER: cost, TBD]</span></span></span>
+      </div>
+      <p><strong>What it is.</strong> Smart lighting and modern building controls &mdash; heat, lighting, and schedules managed centrally instead of by hand, room by room.</p>
+      <p><strong>Why it matters.</strong> A former school building is expensive to run, and much of that expense is heating and lighting rooms nobody is using. Automation is simple stewardship: lights that turn off on their own, heat that follows the calendar instead of someone&rsquo;s memory, and a lighter workload for the volunteers who keep this place running. Like door access, this is a future project that will come back to the committee for planning and costing.</p>
+    </article>
+
+  </section>
+
+  <section id="funding">
+    <h2>Funding &amp; how to give</h2>
+    <p><strong>Total needed:</strong> <span class="placeholder">[PLACEHOLDER: total for Projects 1&ndash;5, up to $10,000]</span> <span class="cost-cap-note">(This covers Projects 1&ndash;5, the priority list; the total will not exceed $10,000.)</span></p>
+    <p><strong>Every gift helps, at any size.</strong> Projects move forward in the priority order listed above, as funds come in &mdash; so partial funding isn&rsquo;t a lesser gift; it simply moves the next project closer to done. If a specific project speaks to you, gifts can be designated for it; gifts may also be given toward the overall effort.</p>
+    <p><strong>How to give.</strong> Gifts are made through the church and may be designated for these projects. <span class="placeholder">[PLACEHOLDER: giving instructions / designation wording]</span></p>
+    <p><strong>If we raise more than needed.</strong> Any funds left over after these projects are complete will be set aside for future Trinity Community Center technology and AV projects &mdash; including the future projects listed above &mdash; so nothing given is ever wasted.</p>
+    <p class="faq-note">Beyond direct gifts, a few friends of the Center have floated ideas such as a mid-winter chili cook-off and a silent auction. These are only ideas under consideration &mdash; nothing is planned yet &mdash; but they are ways the whole community could join in.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Questions or to give</h2>
+    <p>Want to talk through a project, ask a question, or find out how to direct a gift? We would love to hear from you.</p>
+    <p>Contact: <span class="placeholder">[PLACEHOLDER: name]</span> &mdash; <span class="placeholder">[PLACEHOLDER: email]</span> <span class="placeholder">[PLACEHOLDER: phone, optional]</span></p>
+  </section>
+
+</div><!-- /wrap -->
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Trinity Community Center &mdash; a former elementary school in the Town of Herman, Wisconsin, serving our congregation and community. This page is maintained by the Center&rsquo;s volunteer IT/AV manager. Projects are approved by the Property Use Committee, subject to funding. Last updated November 22, 2026.</p>
+  </div>
+</footer>
+
+</body>
+</html>
